@@ -1,14 +1,19 @@
 stages:
   - build
   - test
+  - deploy
 
 Compile:
   stage: build
+  artifacts:
+    name: "CompiledTS"
+    paths:
+      - ./*.js
   tags:
     - typescript
   script:
     - tsc index.ts
-    
+
 Test:
   stage: test
   tags:
@@ -16,3 +21,26 @@ Test:
     - tslint
   script:
     - tslint -c tslint.json index.ts
+
+Deploy-Staging:
+  stage: deploy
+  tags:
+    - deploy
+    - staging
+  environment:
+    name: Staging
+    url: http://127.0.0.1:8081
+  script:
+    - cp -f ./{index.js,index.html} /www-staging/
+
+Deploy-Production:
+  stage: deploy
+  tags:
+    - deploy
+    - production
+  environment:
+    name: Production
+    url: http://127.0.0.1:8082
+  script:
+    - cp -f ./{index.js,index.html} /www-production/
+  when: manual
