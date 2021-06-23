@@ -5,3 +5,6 @@ services:
     image: 'gitlab/gitlab-ce:latest'
     ports:
         - '80:80'
+
+runner-ts:
+    build: runner-ts/. # Dockerfile in runner-te folder
