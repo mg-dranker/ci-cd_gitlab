@@ -14,6 +14,14 @@ Compile:
   script:
     - tsc index.ts
 
+Test:
+  stage: test
+  tags:
+    - typescript
+    - tslint
+  script:
+    - tslint -c tslint.json index.ts
+
 Deploy-Staging:
   stage: deploy
   tags:
