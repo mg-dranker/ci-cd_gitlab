@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
 
 Compile:
   stage: build
@@ -7,3 +8,11 @@ Compile:
     - typescript
   script:
     - tsc index.ts
+    
+Test:
+  stage: test
+  tags:
+    - typescript
+    - tslint
+  script:
+    - tslint -c tslint.json index.ts
