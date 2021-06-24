@@ -1,3 +1,5 @@
+## Настраиваем gitlab-runner сервис
+
 Нужно скачать gitlab-runner и зарегистрировать его в нашем GitLab:
 
 sudo -E apt-get install gitlab-runner
