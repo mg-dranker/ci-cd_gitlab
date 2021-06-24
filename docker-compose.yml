@@ -9,20 +9,20 @@ services:
 runner-ts:
     build: runner-ts/. # Dockerfile in runner-te folder
 
-  runner-deploy:
+runner-deploy:
     build: runner-deploy/.
     volumes:
       - staging:/www-staging
       - production:/www-production
 
-  staging:
+staging:
     image: 'nginx'
     ports:
       - '8081:80'
     volumes:
       - staging:/usr/share/nginx/html
 
-  production:
+production:
     image: 'nginx'
     ports:
       - '8082:80'
