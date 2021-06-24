@@ -1,13 +1,17 @@
-FROM centos:centos7
+FROM node
 
-RUN curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | bash
-RUN GITLAB_RUNNER_DISABLE_SKEL=true yum install gitlab-runner -y
+RUN wget -O /usr/local/bin/gitlab-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-ci-multi-runner-linux-amd64 && \
+    chmod +x /usr/local/bin/gitlab-runner && \
+    useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash && \
+    npm install -g typescript
 
 CMD gitlab-runner register \
--u http://gitlab/ci \
--r **************** \
--n \
-—executor shell \
-—tag-list «deploy,staging,production»\
-—name «Deploy Runner» && \
-tail -f /var/log/yum.log
+    	-u http://gitlab/ci \
+    	-r rSyUTfHxLL_qP7nYSfvA \
+    	-n \
+    	--executor shell \
+    	--tag-list "typescript"\
+    	--name "TypeScript Runner" && \
+    gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner && \
+    gitlab-runner start && \
+    tail -f /var/log/dpkg.log
